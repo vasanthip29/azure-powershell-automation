@@ -1,14 +1,26 @@
-name: Azure CLI Script Check
+name: Run PowerShell Script on Ubuntu
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Change this if you use a different branch
 
 jobs:
-  lint-bash-script:
+  run-vm-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Lint the Automation Script
-        run: bash -n Automation-VM.ps1
+    - name: Install PowerShell
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget apt-transport-https software-properties-common
+        wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+        sudo dpkg -i packages-microsoft-prod.deb
+        sudo apt-get update
+        sudo apt-get install -y powershell
+
+    - name: Run PowerShell script to create Azure VM
+      run: pwsh ./VM.ps1
