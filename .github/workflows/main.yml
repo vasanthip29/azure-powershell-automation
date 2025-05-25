@@ -3,7 +3,7 @@ name: Run PowerShell Script
 on:
   push:
     branches:
-      - main  # Adjust to your working branch
+      - main  # adjust as needed
 
 jobs:
   run-vm-script:
@@ -13,11 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up PowerShell
-      uses: PowerShell/setup-powershell@v2
-      with:
-        pwsh-version: '7.5.1'  # Latest stable version
+    - name: Install PowerShell
+      uses: PowerShell/PowerShell@v1.2.0
 
     - name: Run PowerShell script to create Azure VM
-      run: pwsh ./CreateSimpleVM.ps1
-
+      shell: pwsh
+      run: ./VM.ps1
