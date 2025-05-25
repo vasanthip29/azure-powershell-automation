@@ -1,0 +1,25 @@
+name: PowerShell VM Creation CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PowerShell
+        uses: actions/setup-powershell@v2
+
+      - name: Run VM Creation Script (Syntax Check)
+        shell: pwsh
+        run: |
+          # Run a syntax check (dry-run) for the script
+          powershell -NoProfile -Command {
+            .\VM.ps1 -WhatIf
+          }
