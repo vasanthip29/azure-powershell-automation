@@ -3,7 +3,7 @@ name: Run PowerShell Script
 on:
   push:
     branches:
-      - main  # or your working branch
+      - main  # Adjust to your working branch
 
 jobs:
   run-vm-script:
@@ -19,4 +19,5 @@ jobs:
         pwsh-version: '7.5.1'  # Latest stable version
 
     - name: Run PowerShell script to create Azure VM
-      run: pwsh ./VM.ps1
+      run: pwsh ./CreateSimpleVM.ps1
+
