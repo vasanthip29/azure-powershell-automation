@@ -1,25 +1,22 @@
-name: PowerShell VM Creation CI
+name: Run PowerShell Script
 
 on:
   push:
     branches:
-      - main
+      - main  # or change to your working branch
 
 jobs:
-  build-and-test:
-    runs-on: windows-latest
+  run-vm-script:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Setup PowerShell
-        uses: actions/setup-powershell@v2
+    - name: Set up PowerShell
+      uses: PowerShell/setup-powershell@v2
+      with:
+        pwsh-version: '7.4.x'
 
-      - name: Run VM Creation Script (Syntax Check)
-        shell: pwsh
-        run: |
-          # Run a syntax check (dry-run) for the script
-          powershell -NoProfile -Command {
-            .\VM.ps1 -WhatIf
-          }
+    - name: Run PowerShell script to create Azure VM
+      run: pwsh ./VM.ps1
