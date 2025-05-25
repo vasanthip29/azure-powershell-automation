@@ -1,21 +1,14 @@
-name: Run PowerShell Script
+name: Azure CLI Script Check
 
-on:
-  push:
-    branches:
-      - main  # adjust as needed
+on: [push]
 
 jobs:
-  run-vm-script:
+  lint-bash-script:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Install PowerShell
-      uses: PowerShell/PowerShell@v1.2.0
-
-    - name: Run PowerShell script to create Azure VM
-      shell: pwsh
-      run: ./VM.ps1
+      - name: Lint the Automation Script
+        run: bash -n Automation-VM.ps1
